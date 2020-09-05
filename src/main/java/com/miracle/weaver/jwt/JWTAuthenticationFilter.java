@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miracle.weaver.user.UserAdapter;
-import com.sun.security.auth.UserPrincipal;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.FilterChain;
