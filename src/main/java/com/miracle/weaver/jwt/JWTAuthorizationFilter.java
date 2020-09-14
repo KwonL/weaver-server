@@ -34,8 +34,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String header = request.getHeader(JWTProperties.HEADER_STRING);
 
         if (header == null || !header.startsWith(JWTProperties.TOKEN_PREFIX)) {
-            System.out.println(header);
-
             chain.doFilter(request, response);
             return;
         }
