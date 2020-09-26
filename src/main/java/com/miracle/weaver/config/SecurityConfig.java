@@ -38,8 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf().disable()
+            .sessionManagement().disable()
             .addFilter(new JWTAuthenticationFilter(authenticationManager()))
             .addFilter(new JWTAuthorizationFilter(authenticationManager(), userRepository))
-            .authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER");
+            .authorizeRequests()
+            .regexMatchers("/login/?", "/api/user/signup/?").permitAll()
+            .anyRequest().hasAnyRole("ADMIN", "USER");
     }
 }

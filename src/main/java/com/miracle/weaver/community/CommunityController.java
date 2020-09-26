@@ -27,6 +27,11 @@ public class CommunityController {
     private final CommunityService communityService;
     private final CategoryValidator categoryValidator;
 
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(categoryValidator);
+    }
+
     @GetMapping("board")
     public Page<BoardDTO.List> boardList(Pageable pageable) {
         return communityService.getBoardList(pageable);
@@ -35,11 +40,6 @@ public class CommunityController {
     @GetMapping("board/{id}")
     public BoardDTO.Detail boardDetail(@PathVariable int id) {
         return communityService.getBoardDetail(id);
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(categoryValidator);
     }
 
     @PostMapping("board")

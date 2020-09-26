@@ -2,7 +2,6 @@ package com.miracle.weaver.community;
 
 import com.miracle.weaver.community.dto.BoardDTO;
 import com.miracle.weaver.community.entity.BoardEntity;
-import com.miracle.weaver.community.entity.CategoryEntity;
 import com.miracle.weaver.community.repository.BoardRepository;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
