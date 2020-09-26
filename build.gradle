@@ -12,7 +12,6 @@ repositories {
 group = 'com.miracle'
 version = '0.0.1'
 description = 'weaver'
-sourceCompatibility = '1.8'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.3.RELEASE'

@@ -40,6 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .addFilter(new JWTAuthenticationFilter(authenticationManager()))
             .addFilter(new JWTAuthorizationFilter(authenticationManager(), userRepository))
-            .authorizeRequests().anyRequest().hasRole("ADMIN");
+            .authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER");
     }
 }
