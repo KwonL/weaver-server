@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy over ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd weaver-server
+            echo "${{ secrets.DOTENV }}" > .env
+            git checkout master
+            git pull origin master
+            ./gradlew jibDockerBuild
+            docker-compose up -d
