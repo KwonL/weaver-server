@@ -22,6 +22,8 @@ public class SignUpDTO {
         @NotEmpty
         private String password2;
 
+        @NotNull
+        @NotEmpty
         private String personality;
     }
 

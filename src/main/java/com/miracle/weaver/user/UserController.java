@@ -37,9 +37,13 @@ public class UserController {
         User user = User.builder()
             .username(request.getUsername())
             .password(passwordEncoder.encode(request.getPassword1()))
+            .personality(request.getPersonality())
             .isAdmin(false)
             .build();
         userRepository.save(user);
-        return SignUpDTO.Response.builder().username(user.getUsername()).personality("").build();
+        return SignUpDTO.Response.builder()
+            .username(user.getUsername())
+            .personality(user.getPersonality())
+            .build();
     }
 }
