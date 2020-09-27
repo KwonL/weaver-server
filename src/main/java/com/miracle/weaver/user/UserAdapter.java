@@ -2,9 +2,6 @@ package com.miracle.weaver.user;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,11 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Setter
 public class UserAdapter implements UserDetails {
 
+    private int id;
     private String username;
     private String password;
     private boolean isAdmin;
 
-    public UserAdapter(String username, String password, boolean isAdmin) {
+    public UserAdapter(int id, String username, String password, boolean isAdmin) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.isAdmin = isAdmin;

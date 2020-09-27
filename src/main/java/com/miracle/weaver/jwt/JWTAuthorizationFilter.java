@@ -56,10 +56,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 Optional<User> opt_user = userRepository.findByUsername(username);
                 if (opt_user.isPresent()) {
                     User user = opt_user.get();
-                    UserAdapter userAdapter = new UserAdapter(user.getUsername(),
+                    UserAdapter userAdapter = new UserAdapter(user.getId(), user.getUsername(),
                         user.getPassword(), user.isAdmin());
                     return new UsernamePasswordAuthenticationToken(
-                        username, null, userAdapter.getAuthorities());
+                        user, null, userAdapter.getAuthorities());
                 }
             }
         }

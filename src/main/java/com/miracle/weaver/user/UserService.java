@@ -22,7 +22,7 @@ public class UserService implements UserDetailsService {
             return null;
         } else {
             User user = optUser.get();
-            return new UserAdapter(user.getUsername(), user.getPassword(), user.isAdmin());
+            return new UserAdapter(user.getId(), user.getUsername(), user.getPassword(), user.isAdmin());
         }
     }
 }
