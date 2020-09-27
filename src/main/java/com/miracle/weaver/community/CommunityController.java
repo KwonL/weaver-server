@@ -2,14 +2,14 @@ package com.miracle.weaver.community;
 
 
 import com.miracle.weaver.community.dto.BoardDTO;
+import com.miracle.weaver.community.dto.CommentDTO;
 import com.miracle.weaver.community.validator.CategoryValidator;
-import javax.validation.ConstraintViolationException;
+import com.miracle.weaver.user.User;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -29,7 +29,11 @@ public class CommunityController {
 
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(categoryValidator);
+        if (webDataBinder.getTarget() != null) {
+            if (webDataBinder.getTarget().getClass().equals(BoardDTO.Create.class)) {
+                webDataBinder.addValidators(categoryValidator);
+            }
+        }
     }
 
     @GetMapping("board")
@@ -43,7 +47,15 @@ public class CommunityController {
     }
 
     @PostMapping("board")
-    public BoardDTO.Detail createPost(@Valid @RequestBody BoardDTO.Create boardPost) {
-        return communityService.createPost(boardPost);
+    public BoardDTO.Detail createPost(@Valid @RequestBody BoardDTO.Create request,
+        @AuthenticationPrincipal User user) {
+        return communityService.createPost(request, user);
+    }
+
+    @PostMapping("board/{boardId}/comment")
+    public CommentDTO.Detail createComment(
+        @Valid @RequestBody CommentDTO.Create request,
+        @PathVariable int boardId, @AuthenticationPrincipal User user) {
+        return communityService.createComment(request, boardId, user);
     }
 }
