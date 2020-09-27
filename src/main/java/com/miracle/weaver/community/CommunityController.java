@@ -3,8 +3,10 @@ package com.miracle.weaver.community;
 
 import com.miracle.weaver.community.dto.BoardDTO;
 import com.miracle.weaver.community.dto.CommentDTO;
+import com.miracle.weaver.community.entity.CategoryEntity;
 import com.miracle.weaver.community.validator.CategoryValidator;
 import com.miracle.weaver.user.User;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,8 +40,9 @@ public class CommunityController {
     }
 
     @GetMapping("board")
-    public Page<BoardDTO.List> boardList(Pageable pageable) {
-        return communityService.getBoardList(pageable);
+    public Page<BoardDTO.List> boardList(Pageable pageable,
+        @RequestParam(value = "category_id", required = false) Integer category_id) {
+        return communityService.getBoardList(pageable, category_id);
     }
 
     @GetMapping("board/{id}")
@@ -57,5 +61,10 @@ public class CommunityController {
         @Valid @RequestBody CommentDTO.Create request,
         @PathVariable int boardId, @AuthenticationPrincipal User user) {
         return communityService.createComment(request, boardId, user);
+    }
+
+    @GetMapping("category")
+    public List<CategoryEntity> categoryList() {
+        return communityService.categoryList();
     }
 }

@@ -4,12 +4,13 @@ import com.miracle.weaver.community.dto.BoardDTO;
 import com.miracle.weaver.community.dto.CommentDTO;
 import com.miracle.weaver.community.dto.CommentDTO.Create;
 import com.miracle.weaver.community.entity.BoardEntity;
+import com.miracle.weaver.community.entity.CategoryEntity;
 import com.miracle.weaver.community.entity.CommentEntity;
 import com.miracle.weaver.community.repository.BoardRepository;
+import com.miracle.weaver.community.repository.CategoryRepository;
 import com.miracle.weaver.community.repository.CommentRepository;
 import com.miracle.weaver.user.User;
-import com.miracle.weaver.user.UserAdapter;
-import javax.persistence.EntityManager;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -24,11 +25,14 @@ public class CommunityService {
 
     private final BoardRepository boardRepository;
     private final ModelMapper mapper = new ModelMapper();
-    private final EntityManager entityManager;
     private final CommentRepository commentRepository;
+    private final CategoryRepository categoryRepository;
 
-    public Page<BoardDTO.List> getBoardList(Pageable pageable) {
-        Page<BoardEntity> entities = boardRepository.findAll(pageable);
+    public Page<BoardDTO.List> getBoardList(Pageable pageable, Integer category_id) {
+        Page<BoardEntity> entities =
+            category_id != null
+                ? boardRepository.findAllByCategoryId(category_id, pageable)
+                : boardRepository.findAll(pageable);
 
         return entities.map((e) -> mapper.map(e, BoardDTO.List.class));
     }
@@ -57,5 +61,9 @@ public class CommunityService {
             .build();
         commentEntity = commentRepository.save(commentEntity);
         return mapper.map(commentEntity, CommentDTO.Detail.class);
+    }
+
+    public List<CategoryEntity> categoryList() {
+        return categoryRepository.findAll();
     }
 }
