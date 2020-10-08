@@ -34,6 +34,8 @@ public class BoardEntity {
 
     private String content;
 
+    private Integer likeCnt;
+
     @ManyToOne
     private User user;
 

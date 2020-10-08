@@ -6,3 +6,6 @@ spring:
     url: jdbc:postgresql://${DB_HOST}:5432/weaver
     username: ${DB_USER}
     password: ${DB_PASSWORD}
+server:
+  error:
+    include-stacktrace: never
