@@ -16,11 +16,11 @@ public class SignUpDTO {
 
         @NotNull
         @NotEmpty
-        private String password1;
+        private String password;
 
         @NotNull
         @NotEmpty
-        private String password2;
+        private String nickname;
 
         @NotNull
         @NotEmpty

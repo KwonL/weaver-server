@@ -22,8 +22,8 @@ public class SignUpValidator implements Validator {
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             errors.rejectValue("username", "이미 존재하는 아이디입니다.");
         }
-        if (request.getPassword1() != null && !request.getPassword1().equals(request.getPassword2())) {
-            errors.rejectValue("password", "비밀번호가 일치하지 않습니다.");
+        if (userRepository.findByNickname(request.getNickname()).isPresent()) {
+            errors.rejectValue("nickname", "이미 존재하는 닉네임입니다.");
         }
     }
 }

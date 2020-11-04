@@ -36,7 +36,8 @@ public class UserController {
     public SignUpDTO.Response user(@Valid @RequestBody SignUpDTO.Request request) {
         User user = User.builder()
             .username(request.getUsername())
-            .password(passwordEncoder.encode(request.getPassword1()))
+            .password(passwordEncoder.encode(request.getPassword()))
+            .nickname(request.getNickname())
             .personality(request.getPersonality())
             .isAdmin(false)
             .build();

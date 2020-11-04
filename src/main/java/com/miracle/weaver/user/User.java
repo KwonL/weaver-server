@@ -33,6 +33,11 @@ public class User {
     @NotEmpty
     private String username;
 
+    @Column(unique = true)
+    @NotNull
+    @NotEmpty
+    private String nickname;
+
     @NotNull
     @NotEmpty
     private String password;
