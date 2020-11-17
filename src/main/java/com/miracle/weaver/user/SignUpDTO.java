@@ -28,6 +28,18 @@ public class SignUpDTO {
     }
 
     @Data
+    public static class PatchRequest {
+
+        @NotNull
+        @NotEmpty
+        private String username;
+
+        private String nickname;
+
+        private String personality;
+    }
+
+    @Data
     @Builder
     public static class Response {
 
