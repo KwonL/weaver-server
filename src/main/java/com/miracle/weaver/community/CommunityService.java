@@ -12,6 +12,7 @@ import com.miracle.weaver.community.repository.CategoryRepository;
 import com.miracle.weaver.community.repository.CommentRepository;
 import com.miracle.weaver.community.repository.LikeRepository;
 import com.miracle.weaver.user.User;
+import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,8 +35,8 @@ public class CommunityService {
     public Page<BoardDTO.List> getBoardList(Pageable pageable, Integer category_id) {
         Page<BoardEntity> entities =
             category_id != null
-                ? boardRepository.findAllByCategoryId(category_id, pageable)
-                : boardRepository.findAll(pageable);
+                ? boardRepository.findAllByCategoryIdOrderByIdDesc(category_id, pageable)
+                : boardRepository.findAllByOrderByIdDesc(pageable);
 
         return entities.map((e) -> mapper.map(e, BoardDTO.List.class));
     }
@@ -49,6 +50,8 @@ public class CommunityService {
     public BoardDTO.Detail createPost(BoardDTO.Create request, User user) {
         BoardEntity entity = mapper.map(request, BoardEntity.class);
         entity.setUser(user);
+        entity.setCreatedAt(new Date());
+        entity.setLikeCnt(0);
         entity = boardRepository.save(entity);
         return mapper.map(entity, BoardDTO.Detail.class);
     }

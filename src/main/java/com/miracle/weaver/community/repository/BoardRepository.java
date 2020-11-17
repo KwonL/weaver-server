@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BoardRepository extends CrudRepository<BoardEntity, Integer> {
 
-    Page<BoardEntity> findAll(Pageable pageable);
-    Page<BoardEntity> findAllByCategoryId(int category_id, Pageable pageable);
+    Page<BoardEntity> findAllByOrderByIdDesc(Pageable pageable);
+    Page<BoardEntity> findAllByCategoryIdOrderByIdDesc(int category_id, Pageable pageable);
 }
 

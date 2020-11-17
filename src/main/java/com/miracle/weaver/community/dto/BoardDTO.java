@@ -1,6 +1,7 @@
 package com.miracle.weaver.community.dto;
 
 import com.miracle.weaver.community.entity.CategoryEntity;
+import java.util.Date;
 import java.util.Set;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,8 @@ public class BoardDTO {
         private String title;
 
         private String content;
+
+        private Date createdAt;
     }
 
     @Data
@@ -26,6 +29,8 @@ public class BoardDTO {
         private String title;
 
         private String content;
+
+        private Date createdAt;
 
         private Set<CommentDTO.List> comments;
     }

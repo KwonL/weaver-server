@@ -1,6 +1,7 @@
 package com.miracle.weaver.community.entity;
 
 import com.miracle.weaver.user.User;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -35,6 +36,8 @@ public class BoardEntity {
     private String content;
 
     private Integer likeCnt;
+
+    private Date createdAt;
 
     @ManyToOne
     private User user;
